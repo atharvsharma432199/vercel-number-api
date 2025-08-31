@@ -1,26 +1,35 @@
 {
   "version": 3,
-  "functions": {
-    "api/*.js": {
-      "maxDuration": 30,
-      "memory": 3008,
-    }
-  },
-  "routes": [
+  "builds": [
     {
-      "src": "/api/admin",
-      "dest": "/api/admin.html"
-    },
-    {
-      "src": "/api/(.*)",
-      "headers": {
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
-        "Access-Control-Allow-Headers": "Content-Type, x-api-key, Authorization"
-      }
+      "src": "api/**/*.js",
+      "use": "@vercel/node"
     }
   ],
-  "env": {
-    "NODE_ENV": "production"
-  }
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/api/$1",
+      "methods": ["GET", "POST", "OPTIONS"]
+    }
+  ],
+  "headers": [
+    {
+      "source": "/api/(.*)",
+      "headers": [
+        {
+          "key": "Access-Control-Allow-Origin",
+          "value": "*"
+        },
+        {
+          "key": "Access-Control-Allow-Methods",
+          "value": "GET, POST, OPTIONS"
+        },
+        {
+          "key": "Access-Control-Allow-Headers",
+          "value": "X-Requested-With, Content-Type, Authorization, X-API-KEY"
+        }
+      ]
+    }
+  ]
 }
