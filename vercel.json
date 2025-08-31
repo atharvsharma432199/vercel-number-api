@@ -1,0 +1,27 @@
+{
+  "version": 3,
+  "functions": {
+    "api/*.js": {
+      "maxDuration": 30,
+      "memory": 3008,
+      "maxInstances": 100
+    }
+  },
+  "routes": [
+    {
+      "src": "/api/admin",
+      "dest": "/api/admin.html"
+    },
+    {
+      "src": "/api/(.*)",
+      "headers": {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+        "Access-Control-Allow-Headers": "Content-Type, x-api-key, Authorization"
+      }
+    }
+  ],
+  "env": {
+    "NODE_ENV": "production"
+  }
+}
